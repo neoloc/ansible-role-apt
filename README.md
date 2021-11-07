@@ -1,7 +1,6 @@
 ## apt
 
-[![CI](https://github.com/Oefenweb/ansible-apt/workflows/CI/badge.svg)](https://github.com/Oefenweb/ansible-apt/actions?query=workflow%3ACI)
-[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-apt-blue.svg)](https://galaxy.ansible.com/Oefenweb/apt)
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-apt-blue.svg)](https://galaxy.ansible.com/neoloc/apt)
 
 Manage packages and up(date|grade)s in Debian-like systems.
 
@@ -75,4 +74,4 @@ Mischa ter Smitten (based on work of [kosssi](https://github.com/kosssi) and [An
 
 #### Feedback, bug-reports, requests, ...
 
-Are [welcome](https://github.com/Oefenweb/ansible-apt/issues)!
+Are [welcome](https://github.com/neoloc/ansible-role-apt/issues)!
