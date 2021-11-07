@@ -3,8 +3,13 @@
 deb {{ apt_debian_mirror }} {{ ansible_distribution_release }} main
 {{ '# ' if not apt_src_enable else '' }}deb-src {{ apt_debian_mirror }} {{ ansible_distribution_release }} main
 
+{% if ansible_distribution_major_version == "11" %}
+deb {{ apt_debian_security_mirror }} {{ ansible_distribution_release }}-security main
+{{ '# ' if not apt_src_enable else '' }}deb-src {{ apt_debian_security_mirror }} {{ ansible_distribution_release }}-security main
+{% else %}
 deb {{ apt_debian_security_mirror }} {{ ansible_distribution_release }}/updates main
 {{ '# ' if not apt_src_enable else '' }}deb-src {{ apt_debian_security_mirror }} {{ ansible_distribution_release }}/updates main
+{% endif %}
 
 # {{ ansible_distribution_release }}-updates, previously known as 'volatile'
 deb {{ apt_debian_mirror }} {{ ansible_distribution_release }}-updates main
