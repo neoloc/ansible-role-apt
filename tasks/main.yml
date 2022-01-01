@@ -8,7 +8,9 @@
     group: root
     mode: 0644
   register: apt_config_updated
-  when: apt_manage_sources_list
+  when:
+    - apt_manage_sources_list
+    - (ansible_distribution == "Debian" ) or (ansible_distribution == "Ubuntu")
   tags:
     - configuration
     - apt
@@ -21,7 +23,9 @@
     owner: root
     group: root
     mode: 0644
-  when: apt_etc_apt_apt_conf | bool
+  when:
+    - apt_etc_apt_apt_conf | bool
+    - (ansible_distribution == "Debian" ) or (ansible_distribution == "Ubuntu")
   tags:
     - configuration
     - apt
@@ -31,7 +35,9 @@
   apt:
     update_cache: true
     cache_valid_time: "{{ 0 if apt_config_updated is defined and apt_config_updated.changed else apt_update_cache_valid_time }}"
-  when: apt_update
+  when:
+    - apt_update
+    - (ansible_distribution == "Debian" ) or (ansible_distribution == "Ubuntu")
   tags:
     - configuration
     - apt
@@ -44,7 +50,9 @@
     warn: false
   changed_when: _dpkg_configure.stdout_lines | length
   register: _dpkg_configure
-  when: apt_dpkg_configure
+  when:
+    - apt_dpkg_configure
+    - (ansible_distribution == "Debian" ) or (ansible_distribution == "Ubuntu")
   tags:
     - configuration
     - apt
@@ -58,13 +66,16 @@
     - configuration
     - apt
     - apt-dependencies
+  when: (ansible_distribution == "Debian" ) or (ansible_distribution == "Ubuntu")
 
 - name: upgrade
   apt:
     upgrade: "{{ apt_upgrade_type }}"
     update_cache: true
     dpkg_options: "{{ apt_upgrade_dpkg_options | join(',') }}"
-  when: apt_upgrade
+  when:
+    - apt_upgrade
+    - (ansible_distribution == "Debian" ) or (ansible_distribution == "Ubuntu")
   tags:
     - configuration
     - apt
@@ -76,7 +87,9 @@
   args:
     warn: false
   changed_when: false
-  when: apt_clean
+  when:
+    - apt_clean
+    - (ansible_distribution == "Debian" ) or (ansible_distribution == "Ubuntu")
   tags:
     - configuration
     - apt
@@ -90,6 +103,7 @@
     - configuration
     - apt
     - apt-install
+  when: (ansible_distribution == "Debian" ) or (ansible_distribution == "Ubuntu")
 
 - name: remove
   apt:
@@ -100,12 +114,15 @@
     - configuration
     - apt
     - apt-remove
+  when: (ansible_distribution == "Debian" ) or (ansible_distribution == "Ubuntu")
 
 - name: autoremove
   apt:
     autoremove: true
     dpkg_options: "{{ apt_upgrade_dpkg_options | join(',') }}"
-  when: apt_autoremove
+  when:
+    - apt_autoremove
+    - (ansible_distribution == "Debian" ) or (ansible_distribution == "Ubuntu")
   tags:
     - configuration
     - apt
