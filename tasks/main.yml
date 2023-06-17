@@ -84,8 +84,6 @@
 - name: clean
   command: >
     apt-get -y clean
-  args:
-    warn: false
   changed_when: false
   when:
     - apt_clean
